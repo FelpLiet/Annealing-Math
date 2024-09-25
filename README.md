@@ -4,8 +4,8 @@
 Este repositório contém a implementação do algoritmo Simulated Annealing para resolver diferentes tipos de problemas de otimização em matemática computacional. O Simulated Annealing é inspirado no processo de resfriamento de metais e é amplamente utilizado para encontrar soluções aproximadas em problemas complexos, onde métodos exatos podem ser inviáveis devido ao alto custo computacional.
 
 ## Este projeto aborda problemas como:
-  - [ ] Otimização de funções não lineares.
-  - [ ] Problemas de caminho mínimo (TSP - Travelling Salesman Problem).
+  - [x] Problemas de caminho mínimo (TSP - Travelling Salesman Problem).
+  - [x] Problema da mochila.
   - [ ] Alocação de recursos.
   - [ ] Otimização de rede neural.
 
