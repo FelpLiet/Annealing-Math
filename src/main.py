@@ -1,8 +1,16 @@
+from Simulated_Annealing import knapsack_dynamic
+from Simulated_Annealing.problems.knapsack_problem import KnapsackProblem
+from Simulated_Annealing.problems.tsp_problem import TSPProblem
 import time
 import psutil
 from Simulated_Annealing.sa_solver import SimulatedAnnealing
-from Simulated_Annealing.problems.knapsack_problem import KnapsackProblem
-from Simulated_Annealing.problems.tsp_problem import TSPProblem
+
+def calculate_weight(solution, weights):
+    total_weight = 0
+    for i in range(len(solution)):
+        if solution[i] == 1:
+            total_weight += weights[i]
+    return total_weight
 
 def run_simulated_annealing(problem_class, initial_temperature, cooling_rate, max_iterations, runs=10):
     total_time = 0
@@ -60,11 +68,22 @@ def main():
 
     print(f"Tempo médio de execução: {avg_time:.4f} segundos")
     print(f"Uso médio de memória: {avg_memory / (1024 * 1024):.4f} MB")
-    print(f"Custo médio das melhores soluções: {avg_cost:.4f}")
+    print(f"Custo médio das melhores soluções: {-avg_cost:.4f}")  # Negativo para exibir valor real
     print("Melhores soluções encontradas:")
     for solution, cost in zip(best_solutions, best_costs):
-        print(f"  {solution} - Custo: {cost:.4f}")
+        print(f"  {solution} - Custo: {-cost:.4f}")  # Negativo para exibir valor real
     
+    # Comparar com a solução ótima para o problema da mochila
+    if choice == "1":
+        problem = KnapsackProblem()
+        optimal_cost = knapsack_dynamic(problem.weights, problem.values, problem.capacity)
+        print(f"Solução ótima para o problema da mochila: {optimal_cost}")
+        print(f"Melhor custo encontrado pelo Simulated Annealing: {-min(best_costs)}")  # Negativo porque a função usa -total_value
+
+        # Calcular o peso da melhor solução
+        best_solution = best_solutions[best_costs.index(min(best_costs))]
+        best_weight = calculate_weight(best_solution, problem.weights)
+        print(f"Peso total da melhor solução: {best_weight}")
 
 if __name__ == "__main__":
     main()
